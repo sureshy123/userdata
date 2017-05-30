@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="myApp" ng-controller="appCtrl">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="appstyle.css">
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        <script src="./app.controller.js"></script>
+        <div class="spinner" ng-show="loading">
+
+        <img src="./loading.gif" class="img-loading image"/>
+        </div>
+        <div class="primary" ng-hide="loading">
+            <h1 class="heading-primary">UX Society Members</h1>
+            <div class="form-group has-feedback search-box">
+                <input type="text" class="form-control input-text" ng-model="searchValue" placeholder="search" ng-change="onChange()" />
+                <i class="glyphicon glyphicon-search form-control-feedback"></i>
+            </div>
+            <div class="error">{{errorMessage}}</div>
+            <div ng-if="!errorMessage.length > 0">
+                <div class="search-list"> 
+                    <table class="table table-striped" aria-rowcount="10"> 
+                        <tr>
+                            <th>Name</th>
+                            <th>Occupation</th>
+                            <th>Company</th>
+                        </tr>
+                        <tr ng-repeat="user in sortedData" ng-click="displayData(user,$index)" ng-class="{ 'selected-user': $index == selectedIndex }">
+                            <td>{{user.firstName + ', ' + user.surname }}</td>
+                            <td>{{user.occupation}}</td>
+                            <td>{{user.company}}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="selected-user-details" ng-if="isSelected">
+                    <div class="user-details name">{{selectedUser.firstName + ' '+selectedUser.surname}}</div>
+                    <img class="image" src={{selectedUser.portrait}} />
+                    <div class="user-details">{{selectedUser.occupation}}</div>
+                    <div class="user-details">{{selectedUser.company}}</div>
+                    <div class="user-details">{{'"'+selectedUser.motto+'"'}}</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
